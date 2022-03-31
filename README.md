@@ -8,7 +8,8 @@ TextDrawable源码地址:
 
 https://github.com/amulyakhare/TextDrawable
 
-使用
+使用TextDrawable-----------------------------------------------------------------------------------------------
+
 ####1. Create simple tile:
 
 <p align="center"><img src ="https://github.com/amulyakhare/TextDrawable/blob/master/screens/screen3.png"/>
@@ -119,4 +120,6 @@ image.setImageDrawable(drawable);
 3. Use multiple letters or `unicode` characters to create interesting tiles. 
 
 <p align="center"><img src ="https://github.com/amulyakhare/TextDrawable/blob/master/screens/screen7.png" width="350"/></p>
+
+使用TextDrawable-----------------------------------------------------------------------------------------------
 
