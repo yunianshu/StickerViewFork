@@ -49,7 +49,7 @@ TextDrawable drawable2 = TextDrawable.builder()
 ```java
 TextDrawable drawable = TextDrawable.builder()
                 .beginConfig()
-                    .withBorder(4) /* thickness in px */
+                .withBorder(4) /* thickness in px */
                 .endConfig()
                 .buildRoundRect("A", Color.RED, 10);
 ```
@@ -59,11 +59,11 @@ TextDrawable drawable = TextDrawable.builder()
 ```java
 TextDrawable drawable = TextDrawable.builder()
                 .beginConfig()
-	                .textColor(Color.BLACK)
-                    .useFont(Typeface.DEFAULT)
-                    .fontSize(30) /* size in px */
-                    .bold()
-                    .toUpperCase()
+	        .textColor(Color.BLACK)
+                .useFont(Typeface.DEFAULT)
+                .fontSize(30) /* size in px */
+                .bold()
+                .toUpperCase()
                 .endConfig()
                 .buildRect("a", Color.RED)
 ```
@@ -80,7 +80,7 @@ int color2 = generator.getColor("user@gmail.com")
 // declare the builder object once.
 TextDrawable.IBuilder builder = TextDrawable.builder()
 				.beginConfig()
-					.withBorder(4)
+			        .withBorder(4)
 				.endConfig()
 				.rect();
 
@@ -101,10 +101,10 @@ TextDrawable ic2 = builder.build("B", color2);
 ```java
 TextDrawable drawable = TextDrawable.builder()
 				.beginConfig()
-					.width(60)  // width in px
-					.height(60) // height in px
+				.width(60)  // width in px
+				.height(60) // height in px
 				.endConfig()
-                .buildRect("A", Color.RED);
+                                .buildRect("A", Color.RED);
 
 ImageView image = (ImageView) findViewById(R.id.image_view);
 image.setImageDrawable(drawable);
