@@ -9,9 +9,13 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,10 +27,16 @@ import com.yunianshu.sticker.DrawableSticker;
 import com.yunianshu.sticker.FlipHorizontallyEvent;
 import com.yunianshu.sticker.Sticker;
 import com.yunianshu.sticker.StickerView;
+import com.yunianshu.sticker.TextDrawable;
 import com.yunianshu.sticker.TextSticker;
 import com.yunianshu.sticker.ZoomIconEvent;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
@@ -174,14 +184,32 @@ public class MainActivity extends AppCompatActivity {
         stickerView.addSticker(new DrawableSticker(drawable));
         stickerView.addSticker(new DrawableSticker(drawable1), Sticker.Position.BOTTOM | Sticker.Position.RIGHT);
 
+
         Drawable bubble = ContextCompat.getDrawable(this, R.drawable.bubble);
         stickerView.addSticker(
                 new TextSticker(getApplicationContext())
-                        .setDrawable(bubble)
-                        .setText("我嫂嫂大沙发大沙发三法师法\n")
+                        .setDrawable(bubble, new Rect(20, 20, bubble.getIntrinsicWidth() - 50, bubble.getIntrinsicHeight() - 60))
+                        .setTextAlign(Layout.Alignment.ALIGN_OPPOSITE)
                         .setMaxTextSize(14)
+                        .setTypeface(Typeface.createFromAsset(getAssets(), "hf.ttf"))
+                        .setText("hello,world!\n234523452\neeeeeeee")
                         .resizeText()
                 , Sticker.Position.TOP);
+    }
+
+    public String getConfig(String path) {
+        StringBuilder builder = new StringBuilder();
+        try {
+            InputStream open = getAssets().open("config.json");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(open));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
+        } catch (IOException e) {
+            return null;
+        }
+        return builder.toString();
     }
 
     @Override
@@ -226,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void testAdd(View view) {
         final TextSticker sticker = new TextSticker(this);
-        sticker.setText("Hello, world!");
+        sticker.setText("hello,Wo123rld!");
         sticker.setTextColor(Color.BLUE);
         sticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
         sticker.resizeText();

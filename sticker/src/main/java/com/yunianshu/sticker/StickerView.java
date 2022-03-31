@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
@@ -782,7 +783,7 @@ public class StickerView extends FrameLayout {
       StickerUtils.saveImageToGallery(file, createBitmap());
       StickerUtils.notifySystemGallery(getContext(), file);
     } catch (IllegalArgumentException | IllegalStateException ignored) {
-      //
+      Toast.makeText(getContext(),"save fail",Toast.LENGTH_SHORT).show();
     }
   }
 

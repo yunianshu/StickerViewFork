@@ -23,8 +23,7 @@
       android:layout_gravity="center"
       android:layout_weight="1"
       app:showBorder="true"
-      app:showIcons="true"
-      >
+      app:showIcons="true">
 
     <ImageView
         android:layout_width="match_parent"

@@ -32,7 +32,7 @@ class StickerUtils {
       fos.flush();
       fos.close();
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new IllegalArgumentException(e.getMessage());
     }
 
     Log.e(TAG, "saveImageToGallery: the path of bmp is " + file.getAbsolutePath());

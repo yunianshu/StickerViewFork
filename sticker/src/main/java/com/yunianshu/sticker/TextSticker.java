@@ -2,6 +2,7 @@ package com.yunianshu.sticker;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -73,7 +74,7 @@ public class TextSticker extends Sticker {
     this.context = context;
     this.drawable = drawable;
     if (drawable == null) {
-      this.drawable = ContextCompat.getDrawable(context, R.drawable.sticker_transparent_background);
+      this.drawable = TextDrawable.builder().beginConfig().width(200).height(200).endConfig().buildRoundRect("",Color.GREEN,5);
     }
     textPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
     realBounds = new Rect(0, 0, getWidth(), getHeight());
