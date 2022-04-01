@@ -97,7 +97,7 @@ public class StickerView extends FrameLayout {
   private Sticker handlingSticker;
 
   private boolean locked;
-  private boolean constrained;
+  private boolean constrained;//受约束的
 
   private OnStickerOperationListener onStickerOperationListener;
 
