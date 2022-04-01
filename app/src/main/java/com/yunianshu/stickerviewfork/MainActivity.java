@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.yunianshu.sticker.BitmapStickerIcon;
+import com.yunianshu.sticker.CopyIconEvent;
 import com.yunianshu.sticker.DeleteIconEvent;
 import com.yunianshu.sticker.DrawableSticker;
 import com.yunianshu.sticker.FlipHorizontallyEvent;
@@ -73,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
         BitmapStickerIcon heartIcon =
                 new BitmapStickerIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_24dp),
                         BitmapStickerIcon.LEFT_BOTTOM);
-        heartIcon.setIconEvent(new HelloIconEvent());
+        heartIcon.setIconEvent(new CopyIconEvent());
 
-        stickerView.setIcons(Arrays.asList(deleteIcon, zoomIcon, flipIcon, heartIcon));
+        stickerView.setIcons(Arrays.asList(deleteIcon, zoomIcon, flipIcon));
 
         //default icon layout
         //stickerView.configDefaultIcons();
@@ -255,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
     public void testAdd(View view) {
         final TextSticker sticker = new TextSticker(this);
         sticker.setText("hello,Wo123rld!");
+        sticker.setDrawable(TextDrawable.builder().beginConfig().width(200).height(50).endConfig().buildRoundRect("",Color.argb(255,131,131,131),5));
         sticker.setTextColor(Color.BLUE);
         sticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
         sticker.resizeText();

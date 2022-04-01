@@ -74,7 +74,7 @@ public class TextSticker extends Sticker {
     this.context = context;
     this.drawable = drawable;
     if (drawable == null) {
-      this.drawable = TextDrawable.builder().beginConfig().width(200).height(200).endConfig().buildRoundRect("",Color.GREEN,5);
+      this.drawable = TextDrawable.builder().beginConfig().width(200).height(50).endConfig().buildRoundRect("",Color.TRANSPARENT,5);
     }
     textPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
     realBounds = new Rect(0, 0, getWidth(), getHeight());
@@ -161,6 +161,48 @@ public class TextSticker extends Sticker {
     textPaint.setColor(color);
     return this;
   }
+  /**
+   * 设置文字背景色
+   */
+  @NonNull public TextSticker setTextBackgroundColor(@ColorInt int color) {
+    setTextBackgroundColor(color,5);
+    return this;
+  }
+  /**
+   * 设置文字背景色，并设置圆角
+   */
+  @NonNull public TextSticker setTextBackgroundColor(@ColorInt int color,int radius) {
+    drawable = TextDrawable.builder()
+            .beginConfig()
+            .height(50)
+            .width(200)
+            .endConfig()
+            .buildRoundRect("",color,radius);
+    return this;
+  }
+  /**
+   * 设置文字背景色,并设置宽高
+   */
+  @NonNull public TextSticker setTextBackgroundColor(@ColorInt int color,int width,int height) {
+    if(width != 0 && height != 0)
+    setTextBackgroundColor(color,width,height,5);
+    return this;
+  }
+  /**
+   * 设置文字背景色,并设置宽高以及圆角
+   */
+  @NonNull public TextSticker setTextBackgroundColor(@ColorInt int color,int width,int height,int radius) {
+    if(width != 0 && height != 0)
+    drawable = TextDrawable.builder()
+            .beginConfig()
+            .height(height)
+            .width(width)
+            .endConfig()
+            .buildRoundRect("",color,radius);
+    return this;
+  }
+
+
 
   @NonNull public TextSticker setTextAlign(@NonNull Layout.Alignment alignment) {
     this.alignment = alignment;

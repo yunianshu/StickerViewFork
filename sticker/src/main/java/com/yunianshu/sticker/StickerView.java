@@ -38,8 +38,8 @@ import java.util.List;
  */
 public class StickerView extends FrameLayout {
 
-  private final boolean showIcons;
-  private final boolean showBorder;
+  private final boolean showIcons;//是否显示编辑图标
+  private final boolean showBorder;//是否显示边框
   private final boolean bringToFrontCurrentSticker;
 
   @IntDef({
@@ -706,6 +706,10 @@ public class StickerView extends FrameLayout {
     return addSticker(sticker, Sticker.Position.CENTER);
   }
 
+  @NonNull public StickerView copySticker() {
+    return addSticker(getCurrentSticker(), Sticker.Position.CENTER);
+  }
+
   public StickerView addSticker(@NonNull final Sticker sticker,
       final @Sticker.Position int position) {
     if (ViewCompat.isLaidOut(this)) {
@@ -730,8 +734,7 @@ public class StickerView extends FrameLayout {
     heightScaleFactor = (float) getHeight() / sticker.getDrawable().getIntrinsicHeight();
     scaleFactor = widthScaleFactor > heightScaleFactor ? heightScaleFactor : widthScaleFactor;
 
-    sticker.getMatrix()
-        .postScale(scaleFactor / 2, scaleFactor / 2, getWidth() / 2, getHeight() / 2);
+    sticker.getMatrix().postScale(scaleFactor / 2, scaleFactor / 2, getWidth() / 2, getHeight() / 2);
 
     handlingSticker = sticker;
     stickers.add(sticker);
