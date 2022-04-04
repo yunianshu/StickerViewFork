@@ -16,7 +16,6 @@ import androidx.annotation.Dimension;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 /**
  * Customize your sticker with text and image background.
@@ -36,10 +35,12 @@ public class TextSticker extends Sticker {
    */
   private static final String mEllipsis = "\u2026";
 
+  private static final Drawable defaultDrawable = TextDrawable.builder().beginConfig().width(100).height(50).endConfig().buildRoundRect("",Color.TRANSPARENT,5);
+
   private final Context context;
-  private final Rect realBounds;
-  private final Rect textRect;
-  private final TextPaint textPaint;
+  private Rect realBounds;
+  private Rect textRect;
+  private TextPaint textPaint;
   private Drawable drawable;
   private StaticLayout staticLayout;
   private Layout.Alignment alignment;
@@ -73,16 +74,25 @@ public class TextSticker extends Sticker {
   public TextSticker(@NonNull Context context, @Nullable Drawable drawable) {
     this.context = context;
     this.drawable = drawable;
+    initSticker();
+  }
+
+  private void initSticker(){
     if (drawable == null) {
-      this.drawable = TextDrawable.builder().beginConfig().width(200).height(50).endConfig().buildRoundRect("",Color.TRANSPARENT,5);
+      this.drawable = defaultDrawable;
     }
     textPaint = new TextPaint(TextPaint.ANTI_ALIAS_FLAG);
     realBounds = new Rect(0, 0, getWidth(), getHeight());
     textRect = new Rect(0, 0, getWidth(), getHeight());
-    minTextSizePixels = convertSpToPx(6);
+    minTextSizePixels = convertSpToPx(1);
     maxTextSizePixels = convertSpToPx(32);
-    alignment = Layout.Alignment.ALIGN_CENTER;
+    alignment = Layout.Alignment.ALIGN_NORMAL;
     textPaint.setTextSize(maxTextSizePixels);
+  }
+
+  public void reset(){
+    drawable = null;
+    initSticker();
   }
 
   @Override public void draw(@NonNull Canvas canvas) {
@@ -125,6 +135,8 @@ public class TextSticker extends Sticker {
     }
   }
 
+
+
   @NonNull @Override public TextSticker setAlpha(@IntRange(from = 0, to = 255) int alpha) {
     textPaint.setAlpha(alpha);
     return this;
@@ -154,6 +166,28 @@ public class TextSticker extends Sticker {
 
   @NonNull public TextSticker setTypeface(@Nullable Typeface typeface) {
     textPaint.setTypeface(typeface);
+
+    return this;
+  }
+  /**
+   * Set the text to be displayed.
+   *
+   * @param boo 是否设置文字加粗
+   * @return This TextSticker.
+   */
+  @NonNull public TextSticker setFakeBoldText(boolean boo) {
+    textPaint.setFakeBoldText(boo);
+    return this;
+  }
+
+  /**
+   * Set the text to be displayed.
+   *
+   * @param show 是否显示下划线
+   * @return This TextSticker.
+   */
+  @NonNull public TextSticker setTextUnderLine(boolean show) {
+    textPaint.setUnderlineText(show);
     return this;
   }
 
@@ -184,21 +218,23 @@ public class TextSticker extends Sticker {
    * 设置文字背景色,并设置宽高
    */
   @NonNull public TextSticker setTextBackgroundColor(@ColorInt int color,int width,int height) {
-    if(width != 0 && height != 0)
-    setTextBackgroundColor(color,width,height,5);
+    if(width != 0 && height != 0) {
+      setTextBackgroundColor(color,width,height,5);
+    }
     return this;
   }
   /**
    * 设置文字背景色,并设置宽高以及圆角
    */
   @NonNull public TextSticker setTextBackgroundColor(@ColorInt int color,int width,int height,int radius) {
-    if(width != 0 && height != 0)
-    drawable = TextDrawable.builder()
-            .beginConfig()
-            .height(height)
-            .width(width)
-            .endConfig()
-            .buildRoundRect("",color,radius);
+    if(width != 0 && height != 0) {
+      drawable = TextDrawable.builder()
+              .beginConfig()
+              .height(height)
+              .width(width)
+              .endConfig()
+              .buildRoundRect("",color,radius);
+    }
     return this;
   }
 

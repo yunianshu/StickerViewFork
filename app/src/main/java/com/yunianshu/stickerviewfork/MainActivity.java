@@ -11,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -184,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
                 ContextCompat.getDrawable(this, R.drawable.haizewang_23);
         stickerView.addSticker(new DrawableSticker(drawable));
         stickerView.addSticker(new DrawableSticker(drawable1), Sticker.Position.BOTTOM | Sticker.Position.RIGHT);
-
 
         Drawable bubble = ContextCompat.getDrawable(this, R.drawable.bubble);
         stickerView.addSticker(

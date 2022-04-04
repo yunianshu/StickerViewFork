@@ -262,7 +262,9 @@ public class StickerView extends FrameLayout {
   }
 
   @Override public boolean onInterceptTouchEvent(MotionEvent ev) {
-    if (locked) return super.onInterceptTouchEvent(ev);
+    if (locked) {
+      return super.onInterceptTouchEvent(ev);
+    }
 
     switch (ev.getAction()) {
       case MotionEvent.ACTION_DOWN:
