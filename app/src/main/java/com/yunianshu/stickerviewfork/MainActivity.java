@@ -264,4 +264,12 @@ public class MainActivity extends AppCompatActivity {
 
         stickerView.addSticker(sticker);
     }
+
+    public void testShow(View view){
+        stickerView.show();
+    }
+
+    public void testHide(View view){
+        stickerView.hide();
+    }
 }

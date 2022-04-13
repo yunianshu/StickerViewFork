@@ -166,7 +166,6 @@ public class TextSticker extends Sticker {
 
   @NonNull public TextSticker setTypeface(@Nullable Typeface typeface) {
     textPaint.setTypeface(typeface);
-
     return this;
   }
   /**
@@ -177,6 +176,19 @@ public class TextSticker extends Sticker {
    */
   @NonNull public TextSticker setFakeBoldText(boolean boo) {
     textPaint.setFakeBoldText(boo);
+    return this;
+  }
+
+  /**
+   * 文字阴影
+   */
+  @NonNull public TextSticker setShadowLayer(boolean show) {
+    if(show){
+      int color = textPaint.getColor();
+      textPaint.setShadowLayer(1, 2, 0, Color.BLUE);
+    }else{
+      textPaint.setShadowLayer(1, 2, 0, Color.TRANSPARENT);
+    }
     return this;
   }
 
@@ -245,9 +257,19 @@ public class TextSticker extends Sticker {
     return this;
   }
 
-  @NonNull public TextSticker setMaxTextSize(@Dimension(unit = Dimension.SP) float size) {
+  /**
+   * 新增
+   * @param size 文字大小
+   * @time 2022.04.07
+   * @return
+   */
+  public TextSticker setTextSize(@Dimension(unit = Dimension.SP) float size){
     textPaint.setTextSize(convertSpToPx(size));
-    maxTextSizePixels = textPaint.getTextSize();
+    return this;
+  }
+
+  @NonNull public TextSticker setMaxTextSize(@Dimension(unit = Dimension.SP) float size) {
+    maxTextSizePixels = convertSpToPx(size);
     return this;
   }
 

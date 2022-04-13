@@ -99,6 +99,21 @@
           android:text="Add"
           />
 
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="?attr/selectableItemBackground"
+          android:onClick="testShow"
+          android:text="show"
+          />
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="?attr/selectableItemBackground"
+          android:onClick="testHide"
+          android:text="hide"
+          />
+
     </LinearLayout>
   </HorizontalScrollView>
 </LinearLayout>
