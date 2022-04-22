@@ -104,6 +104,7 @@ public class StickerView extends FrameLayout {
     private boolean locked;
     private boolean constrained;//受约束的
     private float minWidth = 100f;//最小宽度
+    private boolean constrained;//受约束的
 
     private OnStickerOperationListener onStickerOperationListener;
 
@@ -813,12 +814,8 @@ public class StickerView extends FrameLayout {
 
         float scaleFactor, widthScaleFactor, heightScaleFactor;
 
-        int width = getWidth();
-        int height = getHeight();
-        int intrinsicWidth = sticker.getDrawable().getIntrinsicWidth();
-        int intrinsicHeight = sticker.getDrawable().getIntrinsicHeight();
-        widthScaleFactor = (float) width / intrinsicWidth;
-        heightScaleFactor = (float) height / intrinsicHeight;
+        widthScaleFactor = (float) getWidth() / sticker.getDrawable().getIntrinsicWidth();
+        heightScaleFactor = (float) getHeight() / sticker.getDrawable().getIntrinsicHeight();
         scaleFactor = widthScaleFactor > heightScaleFactor ? heightScaleFactor : widthScaleFactor;
 
         sticker.getMatrix().postScale(scaleFactor / 4, scaleFactor / 4, getWidth() / 4, getHeight() / 4);
@@ -971,15 +968,20 @@ public class StickerView extends FrameLayout {
         void onStickerDeleted(@NonNull Sticker sticker);
 
         void onStickerDragFinished(@NonNull Sticker sticker);
+        void onStickerNoTouchedDown();
 
         void onStickerTouchedDown(@NonNull Sticker sticker);
+        void onStickerZoomFinished(@NonNull Sticker sticker);
 
         void onStickerNoTouchedDown();
+        void onStickerFlipped(@NonNull Sticker sticker);
 
         void onStickerZoomFinished(@NonNull Sticker sticker);
 
         void onStickerFlipped(@NonNull Sticker sticker);
 
+        void onStickerDoubleTapped(@NonNull Sticker sticker);
+    }
         void onStickerDoubleTapped(@NonNull Sticker sticker);
     }
 }
