@@ -45,6 +45,7 @@ public class TextSticker extends Sticker {
   private StaticLayout staticLayout;
   private Layout.Alignment alignment;
   private String text;
+  private int shadowColor = -1;
 
   /**
    * Upper bounds for text size.
@@ -142,6 +143,11 @@ public class TextSticker extends Sticker {
     return this;
   }
 
+  public TextSticker setDrawableAlpha(@IntRange(from = 0, to = 255) int alpha) {
+    drawable.setAlpha(alpha);
+    return this;
+  }
+
   @NonNull @Override public Drawable getDrawable() {
     return drawable;
   }
@@ -166,7 +172,6 @@ public class TextSticker extends Sticker {
 
   @NonNull public TextSticker setTypeface(@Nullable Typeface typeface) {
     textPaint.setTypeface(typeface);
-
     return this;
   }
   /**
@@ -177,6 +182,34 @@ public class TextSticker extends Sticker {
    */
   @NonNull public TextSticker setFakeBoldText(boolean boo) {
     textPaint.setFakeBoldText(boo);
+    return this;
+  }
+
+  /**
+   * 文字阴影
+   */
+  @NonNull public TextSticker setShadowLayer(boolean show) {
+    if(show){
+      if(shadowColor == -1){
+        shadowColor = textPaint.getColor();
+      }
+      setShadowLayer(true, shadowColor);
+    }else{
+      setShadowLayer(false, Color.TRANSPARENT);
+    }
+    return this;
+  }
+
+  /**
+   * 文字阴影
+   */
+  @NonNull public TextSticker setShadowLayer(boolean show,int color) {
+    if(show){
+      textPaint.setShadowLayer(0.5f, 0.5f, 0, color);
+      shadowColor = color;
+    }else{
+      textPaint.setShadowLayer(0.5f, 0.5f, 0, Color.TRANSPARENT);
+    }
     return this;
   }
 
@@ -245,9 +278,19 @@ public class TextSticker extends Sticker {
     return this;
   }
 
-  @NonNull public TextSticker setMaxTextSize(@Dimension(unit = Dimension.SP) float size) {
+  /**
+   * 新增
+   * @param size 文字大小
+   * @time 2022.04.07
+   * @return
+   */
+  public TextSticker setTextSize(@Dimension(unit = Dimension.SP) float size){
     textPaint.setTextSize(convertSpToPx(size));
-    maxTextSizePixels = textPaint.getTextSize();
+    return this;
+  }
+
+  @NonNull public TextSticker setMaxTextSize(@Dimension(unit = Dimension.SP) float size) {
+    maxTextSizePixels = convertSpToPx(size);
     return this;
   }
 

@@ -48,13 +48,13 @@ public class TextDrawable extends ShapeDrawable {
         textPaint.setFakeBoldText(builder.isBold);
         textPaint.setStyle(Paint.Style.FILL);
         textPaint.setTypeface(builder.font);
-        textPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint.setTextAlign(builder.align);
         textPaint.setStrokeWidth(builder.borderThickness);
 
         // border paint settings
         borderThickness = builder.borderThickness;
         borderPaint = new Paint();
-        borderPaint.setColor(getDarkerShade(color));
+        borderPaint.setColor(getDarkerShade(builder.textColor));
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setAntiAlias(true);
         borderPaint.setStrokeWidth(borderThickness);
@@ -90,8 +90,11 @@ public class TextDrawable extends ShapeDrawable {
         int height = this.height < 0 ? r.height() : this.height;
         int fontSize = this.fontSize < 0 ? (Math.min(width, height) / 2) : this.fontSize;
         textPaint.setTextSize(fontSize);
-        canvas.drawText(text, width / 2, height / 2 - ((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
-
+        if(textPaint.getTextAlign() == Paint.Align.LEFT) {
+            canvas.drawText(text, 0, height/2-((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+        }else{
+            canvas.drawText(text, width / 2, height / 2 - ((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
+        }
         canvas.restoreToCount(count);
 
     }
@@ -152,6 +155,8 @@ public class TextDrawable extends ShapeDrawable {
 
         private int height;
 
+        private Paint.Align align;
+
         private Typeface font;
 
         private RectShape shape;
@@ -178,6 +183,7 @@ public class TextDrawable extends ShapeDrawable {
             fontSize = -1;
             isBold = false;
             toUpperCase = false;
+            align = Paint.Align.CENTER;
         }
 
         @Override
@@ -189,6 +195,12 @@ public class TextDrawable extends ShapeDrawable {
         @Override
         public IConfigBuilder height(int height) {
             this.height = height;
+            return this;
+        }
+
+        @Override
+        public IConfigBuilder align(Paint.Align align) {
+            this.align = align;
             return this;
         }
 
@@ -288,6 +300,8 @@ public class TextDrawable extends ShapeDrawable {
         public IConfigBuilder width(int width);
 
         public IConfigBuilder height(int height);
+
+        public IConfigBuilder align(Paint.Align align);
 
         public IConfigBuilder textColor(int color);
 
